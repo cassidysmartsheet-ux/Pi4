@@ -173,7 +173,7 @@ main() {
     # Launch Chromium in kiosk mode
     # Use a loop to restart if it crashes
     while true; do
-        chromium-browser $CHROMIUM_ARGS "$URL" 2>&1 | tee -a "$LOG_DIR/chromium.log"
+        chromium $CHROMIUM_ARGS "$URL" 2>&1 | tee -a "$LOG_DIR/chromium.log"
 
         EXIT_CODE=$?
         log "Chromium exited with code $EXIT_CODE"

@@ -43,7 +43,7 @@ Step-by-step guide to get your first Pi 4 kiosk running for testing.
 
 ☑ Configure wireless LAN
    SSID: FarlsFast
-   Password: dad111965
+   Password: dad1111965
    Wireless LAN country: US
 
 ☑ Set locale settings

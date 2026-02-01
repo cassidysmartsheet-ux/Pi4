@@ -149,7 +149,7 @@ install_packages() {
         x11-xserver-utils \
         xinit \
         openbox \
-        chromium-browser \
+        chromium \
         unclutter \
         xdotool \
         curl \
