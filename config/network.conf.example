@@ -1,0 +1,61 @@
+# Network Configuration Template
+# ==============================
+#
+# Copy this file to network.conf and edit for your environment.
+# This is used during initial setup if not configured via Pi Imager.
+#
+# For most setups, configure WiFi during SD card imaging instead.
+# This file is only needed for advanced network configurations.
+#
+# ==============================
+
+# ------------------------------
+# WIFI CONFIGURATION
+# ------------------------------
+
+# Primary WiFi Network
+WIFI_SSID="CassidyAsphalt-Office"
+WIFI_PASSWORD="your_wifi_password_here"
+
+# Backup WiFi Network (optional)
+WIFI_SSID_BACKUP=""
+WIFI_PASSWORD_BACKUP=""
+
+# WiFi Country Code (required for 5GHz)
+WIFI_COUNTRY="US"
+
+# ------------------------------
+# STATIC IP CONFIGURATION
+# ------------------------------
+# Leave empty for DHCP (recommended for most setups)
+
+# Use static IP? (true/false)
+USE_STATIC_IP=false
+
+# Static IP settings (only used if USE_STATIC_IP=true)
+STATIC_IP=""
+GATEWAY=""
+DNS_PRIMARY="8.8.8.8"
+DNS_SECONDARY="8.8.4.4"
+
+# ------------------------------
+# STATIC IP ASSIGNMENTS (Reference)
+# ------------------------------
+# If using static IPs, here's a suggested scheme:
+#
+# crew1-kiosk: 192.168.1.101
+# crew2-kiosk: 192.168.1.102
+# crew3-kiosk: 192.168.1.103
+# crew4-kiosk: 192.168.1.104
+# crew5-kiosk: 192.168.1.105
+# crew6-kiosk: 192.168.1.106
+
+# ------------------------------
+# PROXY CONFIGURATION
+# ------------------------------
+# Only needed if your network requires a proxy
+
+USE_PROXY=false
+PROXY_HTTP=""
+PROXY_HTTPS=""
+PROXY_NO_PROXY="localhost,127.0.0.1"
