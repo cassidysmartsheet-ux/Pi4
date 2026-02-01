@@ -181,6 +181,109 @@ journalctl -u kiosk -f
 
 ---
 
+## Smartsheet-Specific Issues
+
+### CRITICAL: Known Smartsheet Rendering Problems
+
+Smartsheet published views are JavaScript-heavy applications that cause issues on low-power devices.
+
+**Known Problems:**
+
+1. **Page timeout on underpowered hardware**
+   - Pi 2, Pi 3, Firestick, and similar devices may timeout
+   - Smartsheet loads 5-10MB of JavaScript that must execute client-side
+   - **Solution:** Use Raspberry Pi 4 (4GB RAM minimum recommended)
+
+2. **Calendar view reverts to grid view**
+   - Published URL may not preserve the "Calendar" view setting
+   - Opens in grid/sheet view instead of calendar
+   - This is a Smartsheet limitation, not a kiosk issue
+
+3. **Slow initial load**
+   - First load can take 30-60 seconds even on Pi 4
+   - Subsequent loads are faster due to caching
+
+**Hardware Requirements for Smartsheet:**
+
+| Device | RAM | Result |
+|--------|-----|--------|
+| Pi 2 | 1GB | Fails - timeout |
+| Pi 3 | 1GB | Unreliable - frequent timeout |
+| Firestick | 1-2GB | Fails - timeout |
+| Pi 4 | 2GB | May work, marginal |
+| Pi 4 | 4GB+ | Recommended - reliable |
+
+### Smartsheet Loads Wrong View Type
+
+**Symptoms:** URL is set to Calendar view but displays as Grid.
+
+**Cause:** Smartsheet published URLs don't always honor the view type setting.
+
+**Solutions:**
+
+1. **Re-publish with view selected**
+   - Open sheet in Smartsheet
+   - Switch to Calendar view
+   - File > Publish > Disable then Re-enable
+   - Copy new URL
+
+2. **Use a Dashboard instead**
+   - Create a Dashboard in Smartsheet
+   - Embed the Calendar widget
+   - Publish the Dashboard (more reliable)
+
+3. **Check for view parameter**
+   - Some Smartsheet URLs accept a `view` parameter
+   - Try appending `&view=calendar` (not officially supported)
+
+4. **Future option: Custom API solution**
+   - If view issues persist, we may build a custom calendar display
+   - Uses Smartsheet API to fetch data and render our own calendar
+
+### Smartsheet Timeout / Endless Loading
+
+**Symptoms:** Page shows "Please stand by while Smartsheet is loading" forever.
+
+**Cause:** Device cannot execute the JavaScript bundle fast enough.
+
+**Solutions:**
+
+1. **Verify Pi 4 with 4GB RAM**
+   ```bash
+   cat /proc/device-tree/model
+   free -h
+   ```
+
+2. **Increase GPU memory**
+   ```bash
+   sudo nano /boot/config.txt
+   ```
+   Add:
+   ```
+   gpu_mem=256
+   ```
+
+3. **Check CPU isn't throttling**
+   ```bash
+   vcgencmd get_throttled
+   ```
+   Should return `0x0`. Any other value indicates thermal/power issues.
+
+4. **Extend page load timeout in kiosk config**
+   ```bash
+   sudo nano /opt/kiosk/config/kiosk.conf
+   ```
+   Set:
+   ```
+   PAGE_LOAD_TIMEOUT=60
+   ```
+
+5. **Try with fewer Chrome processes**
+   - Already optimized in kiosk-start.sh
+   - If still failing, the hardware may be insufficient
+
+---
+
 ## Browser Issues
 
 ### Chromium Keeps Crashing

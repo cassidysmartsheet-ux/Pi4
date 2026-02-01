@@ -30,23 +30,44 @@ Display crew schedules and calendars published from Smartsheet on large monitors
 
 ## Hardware Requirements
 
+### IMPORTANT: Why Pi 4 is Required
+
+Smartsheet published views are JavaScript-heavy web applications that require significant processing power. **Lower-powered devices will fail:**
+
+| Device | Result |
+|--------|--------|
+| Raspberry Pi 2 | **FAILS** - timeout during load |
+| Raspberry Pi 3 | **FAILS** - unreliable, frequent timeout |
+| Amazon Firestick | **FAILS** - timeout during load |
+| Raspberry Pi 4 (2GB) | Marginal - may work |
+| Raspberry Pi 4 (4GB) | **RECOMMENDED** - reliable |
+
+The Smartsheet JS bundle is 5-10MB and must execute client-side before the page renders. This requires adequate CPU and RAM.
+
 ### Per Kiosk Station
-- Raspberry Pi 4 Model B (4GB RAM recommended)
+- **Raspberry Pi 4 Model B (4GB RAM) - REQUIRED**
 - 32GB+ microSD card (Class 10 or better)
 - Official Raspberry Pi power supply (5V 3A USB-C)
 - Micro HDMI to HDMI cable
 - Monitor with HDMI input
 - Ethernet cable (recommended) or WiFi access
-- Case with passive cooling (optional but recommended)
+- Case with passive/active cooling (recommended - prevents thermal throttling)
 
 ### For 6 Crews
 | Item | Quantity | Notes |
 |------|----------|-------|
-| Raspberry Pi 4 (4GB) | 6 | One per crew display |
+| Raspberry Pi 4 (4GB) | 6 | **4GB model required** for Smartsheet |
 | 32GB microSD cards | 6 | Plus 2 spares recommended |
 | Power supplies | 6 | Official Pi USB-C PSU |
 | HDMI cables | 6 | Micro HDMI to standard HDMI |
 | Monitors | 6 | 43"+ recommended for visibility |
+| Heatsinks or cases with cooling | 6 | Prevents throttling under load |
+
+### Known Smartsheet Limitations
+
+1. **Calendar view may not persist** - Published URLs sometimes revert to grid view
+2. **Initial load is slow** - First page load can take 30-60 seconds
+3. **Heavy resource usage** - Chromium + Smartsheet uses ~1.5-2GB RAM
 
 ## Software Stack
 

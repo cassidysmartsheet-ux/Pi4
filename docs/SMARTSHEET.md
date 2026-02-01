@@ -6,6 +6,37 @@ How to publish and optimize Smartsheet content for the kiosk displays.
 
 Smartsheet offers several publishing options. For kiosk displays, we use **Published Views** which create read-only URLs that update automatically when the source data changes.
 
+## KNOWN ISSUES
+
+Before proceeding, be aware of these Smartsheet limitations:
+
+### 1. Calendar View May Not Persist
+
+**Problem:** When you publish a sheet that's set to Calendar view, the published URL may load as Grid view instead.
+
+**Workarounds:**
+- Re-publish while actively viewing the Calendar (toggle publish off, switch to Calendar, toggle back on)
+- Use a **Dashboard** with an embedded Calendar widget (more reliable)
+- Accept Grid view if Calendar doesn't stick
+
+### 2. Heavy JavaScript Load
+
+**Problem:** Published views load 5-10MB of JavaScript and require significant processing power.
+
+**Impact:**
+- Pi 2, Pi 3, Firestick will **timeout and fail**
+- Pi 4 (4GB) is **required** for reliable operation
+- Initial page load takes 30-60 seconds
+
+### 3. No Font Size Control
+
+**Problem:** You cannot increase font size in published views for better readability on large screens.
+
+**Workarounds:**
+- Use browser zoom (configured in `kiosk.conf`)
+- Design sheets with fewer columns so text appears larger
+- Use Dashboards with Metric widgets for key numbers
+
 ---
 
 ## Publishing a Sheet
